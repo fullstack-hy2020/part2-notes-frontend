@@ -8,6 +8,7 @@
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
+    "dev2": "nodemon index.js",
     "server": "json-server -p3001 --watch db.json"
   },
   "dependencies": {
