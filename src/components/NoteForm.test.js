@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event'
 
 test('<NoteForm /> updates parent state and calls onSubmit', async () => {
   const user = userEvent.setup()
-  const createNote = jest.fn()
+  const createNote = vi.fn()
 
   render(<NoteForm createNote={createNote} />)
 
