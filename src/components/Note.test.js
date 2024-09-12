@@ -22,7 +22,7 @@ test('clicking the button calls event handler once', async () => {
     important: true
   }
 
-  const mockHandler = jest.fn()
+  const mockHandler = vi.fn()
 
   render(
     <Note note={note} toggleImportance={mockHandler} />
