@@ -15,6 +15,14 @@ const App = () => {
   const [notes, setNotes] = useState([])
 
   useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      noteService.setToken(user.token)
+    }
+  }, [])
+
+  useEffect(() => {
     noteService.getAll().then(initialNotes => {
       setNotes(initialNotes)
     })
