@@ -1,4 +1,7 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
+
+import { Link } from 'react-router-dom'
+
 import Note from './Note'
 import Notification from './Notification'
 import LoginForm from './LoginForm'
@@ -15,9 +18,6 @@ const NoteList = ({ notes }) => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
 
-  const noteFormRef = useRef()
-
-
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser')
     if (loggedUserJSON) {
@@ -27,26 +27,6 @@ const NoteList = ({ notes }) => {
     }
   }, [])
 
-
-  const toggleImportanceOf = id => {
-    const note = notes.find(n => n.id === id)
-    const changedNote = { ...note, important: !note.important }
-
-    noteService
-      .update(id, changedNote)
-      .then(returnedNote => {
-        //setNotes(notes.map(note => (note.id !== id ? note : returnedNote)))
-      })
-      .catch(() => {
-        setErrorMessage(
-          `Note '${note.content}' was already removed from server`
-        )
-        setTimeout(() => {
-          setErrorMessage(null)
-        }, 5000)
-        //setNotes(notes.filter(n => n.id !== id))
-      })
-  }
 
 
   const handleLogin = async event => {
@@ -96,11 +76,9 @@ const NoteList = ({ notes }) => {
       </div>
       <ul>
         {notesToShow.map(note => (
-          <Note
-            key={note.id}
-            note={note}
-            toggleImportance={() => toggleImportanceOf(note.id)}
-          />
+          <li key={note.id}>
+            <Link to={`/notes/${note.id}`}>{note.content}</Link>
+          </li>
         ))}
       </ul>
     </div>
